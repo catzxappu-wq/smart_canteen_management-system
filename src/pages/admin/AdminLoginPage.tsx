@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
-import { ShieldAlert, User, Lock, ArrowRight, KeyRound } from 'lucide-react';
+import { ShieldAlert, User, Lock, ArrowRight } from 'lucide-react';
 
 export const AdminLoginPage: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -31,18 +31,12 @@ export const AdminLoginPage: React.FC = () => {
     setIsSubmitting(false);
 
     if (res.success) {
-      success('Admin Access Granted', 'Welcome Meghashree.');
+      success('Admin Access Granted', 'Welcome to Canteen Administration.');
       navigate(from, { replace: true });
     } else {
       setErrorMsg(res.error || 'Invalid administrator credentials. Access denied.');
       toastError('Login Failed', 'Incorrect username or password.');
     }
-  };
-
-  const handleQuickFill = () => {
-    setUsername('meghashree');
-    setPassword('shree@3101');
-    setErrorMsg('');
   };
 
   return (
@@ -60,27 +54,6 @@ export const AdminLoginPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Authorized Credentials Prompt */}
-        <div className="bg-amber-950/40 border border-amber-500/30 rounded-2xl p-4 space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-amber-300 flex items-center gap-1.5">
-              <KeyRound className="w-4 h-4 text-amber-400" />
-              Administrator Credentials
-            </span>
-            <button
-              type="button"
-              onClick={handleQuickFill}
-              className="text-xs font-bold text-amber-400 hover:text-amber-200 underline"
-            >
-              Auto-fill
-            </button>
-          </div>
-          <div className="text-[11px] text-amber-200/90 font-mono space-y-0.5">
-            <div>Username: <strong className="text-white">meghashree</strong></div>
-            <div>Password: <strong className="text-white">shree@3101</strong></div>
-          </div>
-        </div>
-
         {errorMsg && (
           <div className="p-3.5 rounded-xl bg-rose-950/60 border border-rose-800 text-rose-300 text-xs font-medium">
             {errorMsg}
@@ -90,7 +63,7 @@ export const AdminLoginPage: React.FC = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">
-              Username / Identifier
+              Username
             </label>
             <div className="relative">
               <User className="w-4 h-4 text-gray-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -99,7 +72,8 @@ export const AdminLoginPage: React.FC = () => {
                 required
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="meghashree"
+                placeholder="Enter admin username"
+                autoComplete="username"
                 className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-700 bg-gray-800 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-500 transition"
               />
             </div>
@@ -116,7 +90,8 @@ export const AdminLoginPage: React.FC = () => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
+                placeholder="Enter password"
+                autoComplete="current-password"
                 className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-700 bg-gray-800 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-500 transition"
               />
             </div>
@@ -131,7 +106,7 @@ export const AdminLoginPage: React.FC = () => {
               <span className="inline-block w-4 h-4 border-2 border-gray-950 border-t-transparent rounded-full animate-spin" />
             ) : (
               <>
-                <span>Sign In as Meghashree</span>
+                <span>Sign In to Admin Portal</span>
                 <ArrowRight className="w-4 h-4" />
               </>
             )}
