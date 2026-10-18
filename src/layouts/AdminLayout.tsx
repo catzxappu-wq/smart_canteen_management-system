@@ -176,7 +176,7 @@ export const AdminLayout: React.FC = () => {
                 <span className="text-xs font-semibold text-white block leading-tight truncate max-w-[100px]">
                   {user.full_name}
                 </span>
-                <span className="text-[10px] text-gray-400 block">Chef / Admin</span>
+                <span className="text-[10px] text-amber-300 font-semibold block">Administrator</span>
               </div>
             </div>
 

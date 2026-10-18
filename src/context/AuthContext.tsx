@@ -140,23 +140,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
       }
 
-      // Demo/Fallback authentication handler
-      if (cleanEmail === DEMO_ADMIN.email) {
-        if (targetRole && targetRole !== 'admin') {
+      // Strict Admin Authentication Check
+      const isAdminIdentifier =
+        cleanEmail === 'meghashree' ||
+        cleanEmail === 'meghashree@campus.edu' ||
+        cleanEmail === DEMO_ADMIN.email;
+
+      if (targetRole === 'admin' || isAdminIdentifier) {
+        if (isAdminIdentifier && password === 'shree@3101') {
+          setUser(DEMO_ADMIN);
+          localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(DEMO_ADMIN));
           setIsLoading(false);
-          return { success: false, error: 'Cannot log into student portal as administrator.' };
+          return { success: true };
         }
-        setUser(DEMO_ADMIN);
-        localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(DEMO_ADMIN));
         setIsLoading(false);
-        return { success: true };
+        return {
+          success: false,
+          error: 'Invalid administrator credentials. Access denied.',
+        };
       }
 
       if (cleanEmail === DEMO_STUDENT.email) {
-        if (targetRole === 'admin') {
-          setIsLoading(false);
-          return { success: false, error: 'Access denied: You do not have administrator permissions.' };
-        }
         setUser(DEMO_STUDENT);
         localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(DEMO_STUDENT));
         setIsLoading(false);
@@ -176,12 +180,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(found));
         setIsLoading(false);
         return { success: true };
-      }
-
-      // If mock login without pre-registration
-      if (targetRole === 'admin') {
-        setIsLoading(false);
-        return { success: false, error: 'Invalid admin credentials. Use admin@campus.edu or trusted admin account.' };
       }
 
       // Auto-create student profile if testing

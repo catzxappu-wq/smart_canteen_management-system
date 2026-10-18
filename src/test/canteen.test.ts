@@ -237,5 +237,11 @@ describe('Smart Canteen System Test Suite', () => {
       expect(Array.isArray(stats.popularItems)).toBe(true);
       expect(Array.isArray(stats.salesByDay)).toBe(true);
     });
+
+    it('verifies administrator profile is Meghashree and role is admin', () => {
+      expect(DEMO_ADMIN.full_name).toBe('Meghashree');
+      expect(DEMO_ADMIN.role).toBe('admin');
+      expect(DEMO_ADMIN.email).toBe('meghashree@campus.edu');
+    });
   });
 });

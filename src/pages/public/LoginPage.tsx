@@ -144,22 +144,13 @@ export const LoginPage: React.FC = () => {
           </button>
         </form>
 
-        <div className="border-t border-gray-100 pt-6 flex flex-col gap-3 text-center text-xs text-gray-500">
+        <div className="border-t border-gray-100 pt-6 text-center text-xs text-gray-500">
           <p>
             Don't have a student account yet?{' '}
             <Link to="/register" className="font-bold text-emerald-600 hover:underline">
               Register now
             </Link>
           </p>
-          <div className="pt-2">
-            <Link
-              to="/admin/login"
-              className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-amber-700 font-semibold transition"
-            >
-              <ShieldCheck className="w-3.5 h-3.5 text-amber-600" />
-              <span>Are you a canteen administrator? Log in here →</span>
-            </Link>
-          </div>
         </div>
       </div>
     </div>

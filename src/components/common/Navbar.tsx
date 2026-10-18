@@ -30,50 +30,17 @@ export const Navbar: React.FC = () => {
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-xs">
-      {/* Top Demo Banner for Quick Role Switch in College Project Demo */}
+      {/* Top Campus Header */}
       <div className="bg-gradient-to-r from-emerald-800 via-emerald-700 to-green-800 text-white text-xs py-1.5 px-4">
-        <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-2">
             <Sparkles className="w-3.5 h-3.5 text-emerald-300" />
             <span className="font-medium">
-              Smart Canteen Management System • Online Orders & Queue-Free Campus Pickup
+              Smart Canteen Management System • Campus Food Made Effortless
             </span>
           </div>
-
-          <div className="flex items-center gap-3">
-            <span className="text-emerald-200 hidden sm:inline">Active Demo Role:</span>
-            {user ? (
-              <span className="bg-white/20 px-2 py-0.5 rounded text-[11px] font-semibold flex items-center gap-1">
-                {role === 'admin' ? <ShieldCheck className="w-3 h-3 text-amber-300" /> : <User className="w-3 h-3 text-emerald-300" />}
-                {user.full_name} ({role})
-              </span>
-            ) : (
-              <span className="text-emerald-200">Guest</span>
-            )}
-
-            {/* Instant Switch for Evaluation */}
-            <div className="flex items-center gap-1.5 ml-1">
-              <button
-                onClick={() => login('student@campus.edu', undefined, 'student')}
-                className={`text-[10px] px-2 py-0.5 rounded transition ${
-                  role === 'student'
-                    ? 'bg-emerald-400 text-gray-900 font-bold'
-                    : 'bg-white/10 hover:bg-white/20 text-white'
-                }`}
-              >
-                Switch Student
-              </button>
-              <button
-                onClick={() => login('admin@campus.edu', undefined, 'admin')}
-                className={`text-[10px] px-2 py-0.5 rounded transition ${
-                  role === 'admin'
-                    ? 'bg-amber-400 text-gray-900 font-bold'
-                    : 'bg-white/10 hover:bg-white/20 text-white'
-                }`}
-              >
-                Switch Admin
-              </button>
-            </div>
+          <div className="text-[11px] text-emerald-200 hidden sm:block">
+            Main Campus Food Court • Hours: 8:00 AM - 8:30 PM
           </div>
         </div>
       </div>

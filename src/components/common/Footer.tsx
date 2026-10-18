@@ -89,14 +89,11 @@ export const Footer: React.FC = () => {
             <p className="text-xs text-gray-400 leading-relaxed mb-3">
               Protected by PostgreSQL Row Level Security (RLS) and authenticated HMAC payment verification.
             </p>
-            <div className="space-y-2 text-sm">
-              <Link
-                to="/admin/login"
-                className="inline-flex items-center gap-1.5 text-xs text-amber-400 hover:text-amber-300 font-semibold bg-gray-800 hover:bg-gray-700 px-3 py-2 rounded-xl transition border border-gray-700"
-              >
-                <ShieldCheck className="w-4 h-4" />
-                Administrator Portal Login
-              </Link>
+            <div className="space-y-2 text-xs text-gray-500">
+              <span className="inline-flex items-center gap-1.5 text-xs text-emerald-400 font-medium">
+                <ShieldCheck className="w-3.5 h-3.5" />
+                <span>Zero-Queue Campus Express System</span>
+              </span>
             </div>
             <div className="mt-4 text-xs text-gray-500">
               <div className="flex items-center gap-1.5">

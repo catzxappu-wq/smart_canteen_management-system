@@ -268,8 +268,8 @@ export const DEMO_STUDENT: Profile = {
 
 export const DEMO_ADMIN: Profile = {
   id: 'usr-admin-001',
-  full_name: 'Chef Suresh Rao',
-  email: 'admin@campus.edu',
+  full_name: 'Meghashree',
+  email: 'meghashree@campus.edu',
   phone: '+91 98765 99999',
   role: 'admin',
   created_at: new Date(Date.now() - 86400000 * 30).toISOString(),
