@@ -39,6 +39,14 @@ import { AdminReportsPage } from './pages/admin/AdminReportsPage';
 import { AdminSettingsPage } from './pages/admin/AdminSettingsPage';
 
 export function App() {
+  React.useEffect(() => {
+    // Gracefully handle if user accesses via \admin in address bar
+    if (typeof window !== 'undefined' && (window.location.pathname.includes('\\admin') || window.location.pathname.startsWith('/%5Cadmin'))) {
+      const cleanPath = window.location.pathname.replace(/(\\|\/%5C)admin/gi, '/admin');
+      window.location.replace(cleanPath || '/admin');
+    }
+  }, []);
+
   return (
     <BrowserRouter>
       <ToastProvider>

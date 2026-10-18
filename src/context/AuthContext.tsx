@@ -99,8 +99,54 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsLoading(true);
     try {
       const cleanEmail = email.trim().toLowerCase();
+      const isAdminIdentifier =
+        cleanEmail === 'meghashree' ||
+        cleanEmail === 'meghashree@campus.edu' ||
+        cleanEmail === DEMO_ADMIN.email;
 
-      // Check Supabase if configured
+      // Strict Admin Authentication Check
+      if (targetRole === 'admin' || isAdminIdentifier) {
+        if (!isAdminIdentifier || password !== 'shree@3101') {
+          setIsLoading(false);
+          return {
+            success: false,
+            error: 'Invalid administrator credentials. Access denied.',
+          };
+        }
+
+        // If Supabase is connected, attempt cloud auth verification
+        if (isSupabaseConfigured && password) {
+          try {
+            const { data } = await supabase.auth.signInWithPassword({
+              email: 'meghashree@campus.edu',
+              password: 'shree@3101',
+            });
+            if (data?.user) {
+              const { data: profile } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('id', data.user.id)
+                .single();
+              if (profile && profile.role === 'admin') {
+                setUser(profile);
+                localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(profile));
+                setIsLoading(false);
+                return { success: true };
+              }
+            }
+          } catch {
+            // Fallback to local admin
+          }
+        }
+
+        // Guaranteed authenticated admin session for Meghashree
+        setUser(DEMO_ADMIN);
+        localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(DEMO_ADMIN));
+        setIsLoading(false);
+        return { success: true };
+      }
+
+      // Check Supabase if configured for student login
       if (isSupabaseConfigured && password) {
         const { data, error } = await supabase.auth.signInWithPassword({
           email: cleanEmail,
@@ -138,26 +184,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           setIsLoading(false);
           return { success: true };
         }
-      }
-
-      // Strict Admin Authentication Check
-      const isAdminIdentifier =
-        cleanEmail === 'meghashree' ||
-        cleanEmail === 'meghashree@campus.edu' ||
-        cleanEmail === DEMO_ADMIN.email;
-
-      if (targetRole === 'admin' || isAdminIdentifier) {
-        if (isAdminIdentifier && password === 'shree@3101') {
-          setUser(DEMO_ADMIN);
-          localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(DEMO_ADMIN));
-          setIsLoading(false);
-          return { success: true };
-        }
-        setIsLoading(false);
-        return {
-          success: false,
-          error: 'Invalid administrator credentials. Access denied.',
-        };
       }
 
       if (cleanEmail === DEMO_STUDENT.email) {
